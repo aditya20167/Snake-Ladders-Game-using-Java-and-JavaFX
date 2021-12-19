@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="580.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.approject.GameController">
+   <children>
+      <ImageView fx:id="background" fitHeight="580.0" fitWidth="360.0" pickOnBounds="true">
+         <image>
+            <Image url="@game_background.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="bluedie" fitHeight="33.0" fitWidth="37.0" layoutX="48.0" layoutY="404.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@blue_die.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="greendie" fitHeight="33.0" fitWidth="25.0" layoutX="65.0" layoutY="404.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@green_die.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="board1" fitHeight="366.0" fitWidth="248.0" layoutX="56.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@board_1.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="dieouter" fitHeight="53.0" fitWidth="57.0" layoutX="154.0" layoutY="455.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@dice_outer.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="player1" fitHeight="53.0" fitWidth="99.0" layoutX="68.0" layoutY="457.0" pickOnBounds="true">
+         <image>
+            <Image url="@player_1.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="player2" fitHeight="53.0" fitWidth="99.0" layoutX="198.0" layoutY="455.0" pickOnBounds="true">
+         <image>
+            <Image url="@player_2.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
