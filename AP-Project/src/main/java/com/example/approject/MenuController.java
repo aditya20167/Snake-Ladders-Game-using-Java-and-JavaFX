@@ -42,8 +42,6 @@ public class MenuController {
     @FXML
     private Parent root;
 
-    Stage stage;
-
     @FXML
     void onExitClick(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -51,8 +49,8 @@ public class MenuController {
         alert.setHeaderText("You are going to exit the game!!");
         alert.setContentText("Are you sure want to exit?");
         if(alert.showAndWait().get() == ButtonType.OK){
-            stage = (Stage) menuPane.getScene().getWindow();
-            stage.close();
+            primaryStage = (Stage) menuPane.getScene().getWindow();
+            primaryStage.close();
         }
     }
 
