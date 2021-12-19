@@ -12,17 +12,17 @@
             <Image url="@game_background.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="bluedie" fitHeight="33.0" fitWidth="37.0" layoutX="48.0" layoutY="404.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="bluedie" fitHeight="33.0" fitWidth="37.0" layoutX="48.0" layoutY="412.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@blue_die.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="greendie" fitHeight="33.0" fitWidth="25.0" layoutX="65.0" layoutY="404.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="greendie" fitHeight="33.0" fitWidth="25.0" layoutX="65.0" layoutY="413.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@green_die.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="board1" fitHeight="366.0" fitWidth="248.0" layoutX="56.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="board1" fitHeight="366.0" fitWidth="248.0" layoutX="56.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@board_1.png" />
          </image>
@@ -42,11 +42,11 @@
             <Image url="@player_2.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="33.0" fitWidth="26.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="33.0" fitWidth="40.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true">
          <image>
             <Image url="@return.png" />
          </image>
       </ImageView>
-      <Button fx:id="returnButton" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onClickReturn" opacity="0.0" prefHeight="23.0" prefWidth="25.0" />
+      <Button fx:id="returnbutton" layoutX="16.0" layoutY="18.0" mnemonicParsing="false" onAction="#onReturnClick" opacity="0.0" prefHeight="26.0" prefWidth="40.0" />
    </children>
 </AnchorPane>

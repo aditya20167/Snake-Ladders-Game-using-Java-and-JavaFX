@@ -23,11 +23,12 @@ public class PlayerNames {
     @FXML
     private Parent root;
     @FXML
-    private TextField player1;
+    public TextField player1;
     @FXML
-    private TextField player2;
+    public TextField player2;
 
-    String name1, name2;
+    private String name1, name2;
+
     @FXML
     void onPlayButtonClick(ActionEvent event) {
         try {
@@ -40,11 +41,25 @@ public class PlayerNames {
             e.printStackTrace();
         }
     }
-
+    @FXML
+    void onReturnClick(ActionEvent event) {
+        try {
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Menu.fxml")));
+            primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     void player1input(ActionEvent event) {
         try {
             name1 = player1.getText();
+            if (name1 == null) {
+                name1 = "Player 1";
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -54,10 +69,18 @@ public class PlayerNames {
     void player2input(ActionEvent event) {
         try {
             name2 = player2.getText();
+            if (name2 == null) {
+                name2 = "Player 2";
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
+    public String getName1() {
+        return name1;
+    }
+    public String getName2() {
+        return name2;
+    }
 }
 
