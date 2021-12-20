@@ -8,10 +8,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Objects;
+import java.util.Random;
 
 public class PlayerNames {
     @FXML
@@ -23,15 +28,30 @@ public class PlayerNames {
     @FXML
     private Parent root;
     @FXML
-    private TextField player1;
+    private TextField player1Name;
     @FXML
-    private TextField player2;
+    private TextField player2Name;
 
-    String name1, name2;
+    private String name1, name2;
     @FXML
     void onPlayButtonClick(ActionEvent event) {
         try {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Game.fxml")));
+            String player1 = player1Name.getText();
+            String player2 = player2Name.getText();
+
+            Random rand = new Random();
+            int firstRoll = rand.nextInt(3) + 1;
+            InputStream firstStream = new FileInputStream("C:/Users/adity/Documents/GitHub/AP_Project/AP-Project/src/main/resources/com/example/approject/board_" + firstRoll + ".png");
+            Image board = new Image(firstStream);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Game.fxml"));
+            root = loader.load();
+
+            GameController gamer = loader.getController();
+            gamer.setPlayerNames(player1, player2);
+            gamer.setStart();
+            gamer.setBoard(board);
+
             primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             primaryStage.setScene(scene);
@@ -40,24 +60,5 @@ public class PlayerNames {
             e.printStackTrace();
         }
     }
-
-    @FXML
-    void player1input(ActionEvent event) {
-        try {
-            name1 = player1.getText();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void player2input(ActionEvent event) {
-        try {
-            name2 = player2.getText();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 }
 
