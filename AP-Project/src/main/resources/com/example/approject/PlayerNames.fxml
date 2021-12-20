@@ -9,31 +9,33 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="580.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.approject.PlayerNames">
+<AnchorPane prefHeight="580.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.approject.PlayerNames">
    <ImageView fitHeight="580.0" fitWidth="360.0" layoutX="-1.0" layoutY="-1.0" pickOnBounds="true">
-      <Image url="@game_background.png"/>
+      <Image url="@game_background.png" />
    </ImageView>
-   <Circle fill="DODGERBLUE" layoutX="54.0" layoutY="79.0" radius="12.0" stroke="BLACK" strokeType="INSIDE"/>
-   <Circle fill="#1fff30" layoutX="54.0" layoutY="132.0" radius="12.0" stroke="BLACK" strokeType="INSIDE"/>
+   <Circle fill="DODGERBLUE" layoutX="54.0" layoutY="79.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+   <Circle fill="#1fff30" layoutX="54.0" layoutY="132.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+   <ImageView fitHeight="34.0" fitWidth="42.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@return.png" />
+      </image>
+   </ImageView>
    <Label layoutX="91.0" layoutY="65.0" prefHeight="28.0" prefWidth="79.0" text="Player 1" textFill="#fffefe">
       <font>
-         <Font size="19.0"/>
+         <Font size="19.0" />
       </font>
    </Label>
    <Label layoutX="91.0" layoutY="118.0" prefHeight="28.0" prefWidth="79.0" text="Player 2" textFill="WHITE">
       <font>
-         <Font size="19.0"/>
+         <Font size="19.0" />
       </font>
    </Label>
-   <TextField fx:id="player1Name" layoutX="179.0" layoutY="66.0" onAction="#onPlayButtonClick"
-              promptText="Enter name of player 1"/>
-   <TextField fx:id="player2Name" layoutX="179.0" layoutY="119.0" onAction="#onPlayButtonClick"
-              promptText="Enter name of player 2"/>
-   <Button fx:id="playbutton" layoutX="140.0" layoutY="266.0" mnemonicParsing="false" onAction="#onPlayButtonClick"
-           prefHeight="46.0" prefWidth="79.0" text="PLAY">
+   <TextField fx:id="player1Name" layoutX="179.0" layoutY="66.0" onAction="#onPlayButtonClick" promptText="Enter name of player 1" />
+   <TextField fx:id="player2Name" layoutX="179.0" layoutY="119.0" onAction="#onPlayButtonClick" promptText="Enter name of player 2" />
+   <Button fx:id="playbutton" layoutX="140.0" layoutY="266.0" mnemonicParsing="false" onAction="#onPlayButtonClick" prefHeight="46.0" prefWidth="79.0" text="PLAY">
       <font>
-         <Font size="19.0"/>
+         <Font size="19.0" />
       </font>
    </Button>
+   <Button fx:id="returnbutton" layoutX="14.0" layoutY="19.0" mnemonicParsing="false" onAction="#onReturnClickNames" opacity="0.0" prefHeight="18.0" prefWidth="38.0" />
 </AnchorPane>
