@@ -36,12 +36,12 @@
       </ImageView>
       <ImageView fx:id="player1" fitHeight="53.0" fitWidth="99.0" layoutX="68.0" layoutY="457.0" pickOnBounds="true">
          <image>
-            <Image url="@player_1.png" />
+            <Image url="@player_1_new.png" />
          </image>
       </ImageView>
       <ImageView fx:id="player2" fitHeight="53.0" fitWidth="99.0" layoutX="198.0" layoutY="455.0" pickOnBounds="true">
          <image>
-            <Image url="@player_2.png" />
+            <Image url="@player_2_new.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="33.0" fitWidth="26.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
@@ -52,11 +52,11 @@
       <ImageView fx:id="dieImg" fitHeight="43.0" fitWidth="42.0" layoutX="160.0" layoutY="460.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="returnButton" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onClickReturn" opacity="0.0" prefHeight="23.0" prefWidth="25.0" />
       <Button fx:id="diceRoller" layoutX="158.0" layoutY="466.0" mnemonicParsing="false" onAction="#onDieRoll" opacity="0.0" prefHeight="33.0" prefWidth="42.0" />
-      <Label fx:id="player1Label" layoutX="76.0" layoutY="508.0" prefHeight="26.0" prefWidth="70.0" textFill="#fffdfd">
+      <Label fx:id="player1Label" layoutX="111.0" layoutY="470.0" prefHeight="26.0" prefWidth="42.0" textFill="#fffdfd">
          <font>
             <Font size="16.0" />
          </font></Label>
-      <Label fx:id="player2Label" alignment="CENTER_RIGHT" layoutX="212.0" layoutY="511.0" prefHeight="17.0" prefWidth="70.0" textFill="#fff8f8">
+      <Label fx:id="player2Label" alignment="CENTER_RIGHT" layoutX="205.0" layoutY="470.0" prefHeight="26.0" prefWidth="42.0" textFill="#fff8f8">
          <font>
             <Font size="16.0" />
          </font></Label>
