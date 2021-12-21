@@ -18,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.CubicCurveTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.scene.shape.Polyline;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -92,7 +93,7 @@ public class GameController {
             e.printStackTrace();
         }
     }
-    static int x;
+    private int x, flag;
     @FXML
     private Text Status;
     @FXML
@@ -144,7 +145,7 @@ public class GameController {
         translate.stop();
         Thread thread = new Thread(() -> {
             try {
-                for (int i = 0; i < 20; i++) {
+                for (int i = 0; i < 10; i++) {
                     int nextRoll = rand.nextInt(6) + 1;
                     InputStream stream = new FileInputStream("AP-Project/src/main/resources/com/example/approject/dice_" + nextRoll + ".png");
                     Image diceRoll = new Image(stream);
@@ -153,32 +154,46 @@ public class GameController {
                     x = nextRoll;
                 }
                 diceRoller.setDisable(false);
-                movePlayerTokenX(bluedie, x);
-//                translate.play();
+                System.out.println("flag: " + flag);
+                if (flag == 1) {
+                    movePlayerTokenY(bluedie, x);
+                }
+                if(x == 1) {
+                    movePlayerTokenY(bluedie, x);
+                    flag = 1;
+                    x+=1;
+                }
             } catch (Exception e) {
-                System.out.println(e);
+                e.printStackTrace();
             }
         });
         thread.start();
     }
 
     @FXML
-    public void movePlayerTokenX (ImageView image,float moveBy){
-//        TranslateTransition translate = new TranslateTransition();
-//        translate.setNode(image);
-//        translate.setDuration(Duration.millis(2000));
-//        translate.setCycleCount(1);
-//        translate.setByX(moveBy * 25);
-        Path path = new Path();
-        path.getElements().add(new MoveTo(moveBy, moveBy));
-        path.getElements().add(new CubicCurveTo(-50, 0, -50, 0, moveBy, moveBy + 50));
+    public void movePlayerTokenX (ImageView image,int moveBy){
+        TranslateTransition translate = new TranslateTransition();
+        translate.setNode(image);
+        translate.setDuration(Duration.millis(2000));
+        translate.setCycleCount(1);
+        translate.setByX(moveBy * 25);
+//        Path path = new Path();
+//        Polyline polyline = new Polyline();
+//        polyline.getPoints().addAll(new Double[]{
+//                0.0, 0.0,
+//                0.0, 0.0,
+//                0.0, 0.0,
+//                0.0, 0.0});
+//        path.getElements().add(new Polyline(0, 0, 0, 25, 25, 25, 25, 0, 25, 0, 0));
+//        path.getElements().add(new MoveTo(moveBy, moveBy));
+//        path.getElements().add(new CubicCurveTo(-50, 0, -50, 0, moveBy, moveBy + 50));
 //        path.getElements().add(new CubicCurveTo(200, 120, 0, 240, 200, 50));
-        PathTransition pathTransition = new PathTransition();
-        pathTransition.setDuration(Duration.millis(3000));
-        pathTransition.setPath(path);
-        pathTransition.setNode(image);
-        pathTransition.play();
-//        translate.play();
+//        PathTransition pathTransition = new PathTransition();
+//        pathTransition.setDuration(Duration.millis(3000));
+//        pathTransition.setPath(path);
+//        pathTransition.setNode(image);
+//        pathTransition.play();
+        translate.play();
     }
 
     @FXML
@@ -187,9 +202,9 @@ public class GameController {
         translate.setNode(image);
         translate.setDuration(Duration.millis(2000));
         translate.setCycleCount(1);
-        translate.setByY(25);
+        translate.setByY(-35);
         translate.play();
-
+        System.out.println("moveBy" + moveBy);
     }
 
     void move(int x) {
@@ -218,7 +233,6 @@ public class GameController {
         pos +=x;
         if (ladders.containsKey(pos)) {
             int y = ladders.get(pos);
-
         }
         if (snakes.containsKey(pos)) {
             int y = snakes.get(pos);

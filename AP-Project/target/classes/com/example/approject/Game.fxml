@@ -19,12 +19,12 @@
             <Image url="@board_1.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="greendie" fitHeight="33.0" fitWidth="25.0" layoutX="63.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="greendie" fitHeight="33.0" fitWidth="25.0" layoutX="63.0" layoutY="410.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@green_token.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="bluedie" fitHeight="33.0" fitWidth="37.0" layoutX="50.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="bluedie" fitHeight="33.0" fitWidth="37.0" layoutX="50.0" layoutY="402.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@blue_token.png" />
          </image>
@@ -52,8 +52,8 @@
       <ImageView fx:id="dieImg" fitHeight="43.0" fitWidth="42.0" layoutX="160.0" layoutY="460.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="returnButton" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#onClickReturn" opacity="0.0" prefHeight="23.0" prefWidth="25.0" />
       <Button fx:id="diceRoller" layoutX="158.0" layoutY="466.0" mnemonicParsing="false" onAction="#onDieRoll" opacity="0.0" prefHeight="33.0" prefWidth="42.0" />
-      <Label fx:id="player1Label" layoutX="111.0" layoutY="470.0" prefHeight="26.0" prefWidth="42.0" textFill="#fffdfd" />
-      <Label fx:id="player2Label" alignment="CENTER_RIGHT" layoutX="205.0" layoutY="470.0" prefHeight="26.0" prefWidth="42.0" textFill="#fff8f8" />
+      <Label fx:id="player1Label" alignment="CENTER" layoutX="103.0" layoutY="469.0" prefHeight="26.0" prefWidth="51.0" textFill="#fffdfd" />
+      <Label fx:id="player2Label" alignment="CENTER" layoutX="205.0" layoutY="469.0" prefHeight="26.0" prefWidth="51.0" textFill="#fff8f8" />
       <ImageView fx:id="arrow" fitHeight="43.0" fitWidth="42.0" layoutX="159.0" layoutY="395.0" pickOnBounds="true">
          <image>
             <Image url="@arrow.png" />

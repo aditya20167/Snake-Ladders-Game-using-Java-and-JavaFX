@@ -20,12 +20,12 @@
          <Image url="@return.png" />
       </image>
    </ImageView>
-   <Label layoutX="91.0" layoutY="65.0" prefHeight="28.0" prefWidth="79.0" text="Player 1" textFill="#fffefe">
+   <Label fx:id="player1label" alignment="CENTER" layoutX="83.0" layoutY="65.0" prefHeight="28.0" prefWidth="87.0" text="Player 1" textFill="#fffefe">
       <font>
          <Font size="19.0" />
       </font>
    </Label>
-   <Label layoutX="91.0" layoutY="118.0" prefHeight="28.0" prefWidth="79.0" text="Player 2" textFill="WHITE">
+   <Label fx:id="player2label" alignment="CENTER" layoutX="83.0" layoutY="118.0" prefHeight="28.0" prefWidth="87.0" text="Player 2" textFill="WHITE">
       <font>
          <Font size="19.0" />
       </font>

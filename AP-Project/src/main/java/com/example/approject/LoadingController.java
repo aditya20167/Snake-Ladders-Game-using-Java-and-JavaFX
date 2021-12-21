@@ -53,12 +53,12 @@ public class LoadingController {
                         root = fxmlLoader.load();
                         primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         scene = new Scene(root);
+                        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("Menu.css")).toExternalForm());
                         primaryStage.setScene(scene);
                         primaryStage.show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
                 });
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());

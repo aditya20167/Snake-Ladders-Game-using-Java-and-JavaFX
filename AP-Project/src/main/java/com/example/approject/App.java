@@ -15,10 +15,11 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Loader.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Menu.fxml")));
             Image icon = new Image(new File("src/main/resources/com.example.approject/snake.png").toURI().toString());
             primaryStage.getIcons().add(icon);
             Scene scene = new Scene(root);
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("Loader.css")).toExternalForm());
 //            primaryStage.setFullScreen(true);
             primaryStage.setResizable(false);
             primaryStage.setTitle("Snakes & Ladders");

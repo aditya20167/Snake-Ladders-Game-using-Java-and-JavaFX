@@ -60,6 +60,7 @@ public class MenuController {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("PlayerNames.fxml")));
             primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("Names.css")).toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {

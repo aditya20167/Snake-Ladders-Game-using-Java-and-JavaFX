@@ -1,0 +1,19 @@
+#playbutton {
+    -fx-background-color: #00bbff;
+    -fx-font-family: Algerian;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+#playbutton:hover {
+    -fx-background-color: #fff700;
+}
+#player1label {
+    -fx-font-family: Algerian;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+#player2label {
+    -fx-font-family: Algerian;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
