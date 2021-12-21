@@ -1,5 +1,6 @@
 package com.example.approject;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,19 +47,23 @@ public class LoadingController {
                     progress2.setProgress(i / 100.0);
                     Thread.sleep(30);
                 }
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Menu.fxml"));
-                root = fxmlLoader.load();
-                primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                scene = new Scene(root);
-                primaryStage.setScene(scene);
-                primaryStage.show();
-//                Thread.sleep(3000);
-//                progress.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
-            } catch (InterruptedException | IOException e) {
+                Platform.runLater(() -> {
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Menu.fxml"));
+                        root = fxmlLoader.load();
+                        primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        scene = new Scene(root);
+                        primaryStage.setScene(scene);
+                        primaryStage.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                });
+            } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
         });
         thread.start();
-
     }
 }

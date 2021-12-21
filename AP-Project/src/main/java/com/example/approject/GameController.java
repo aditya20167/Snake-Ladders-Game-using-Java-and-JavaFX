@@ -92,9 +92,13 @@ public class GameController {
             e.printStackTrace();
         }
     }
-
     static int x;
-
+    @FXML
+    private Text Status;
+    @FXML
+    public void getCoordinates(MouseEvent event){
+        Status.setText("X: "+event.getX()+" Y: "+event.getY());
+    }
     @FXML
     public void setPlayerNames(String player1, String player2) {
         player1Label.setText(player1);
@@ -133,12 +137,6 @@ public class GameController {
         InputStream firstStream = new FileInputStream("AP-Project/src/main/resources/com/example/approject/dice_" + firstRoll + ".png");
         Image firstDie = new Image(firstStream);
         dieImg.setImage(firstDie);
-    }
-    @FXML
-    private Text Status;
-    @FXML
-    public void getCoordinates(MouseEvent event){
-        Status.setText("X: "+event.getX()+" Y: "+event.getY());
     }
     @FXML
     void onDieRoll(ActionEvent event) {
