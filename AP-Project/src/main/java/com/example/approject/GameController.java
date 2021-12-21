@@ -144,7 +144,7 @@ public class GameController extends PlayerNames {
                     x = nextRoll;
                 }
                 diceRoller.setDisable(false);
-//                movePlayerTokenX(bluedie, x);
+                movePlayerTokenX(bluedie, x);
 //                translate.play();
             } catch (Exception e) {
                 System.out.println(e);
