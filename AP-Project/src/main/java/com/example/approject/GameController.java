@@ -18,6 +18,7 @@ import javafx.util.Duration;
 
 import java.io.*;
 import java.net.InetSocketAddress;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.Random;
 
@@ -69,18 +70,29 @@ public class GameController extends PlayerNames{
     private Parent root;
 
     @FXML
-    private Image die1, die2, die3, die4, die5, die6;
+    private Image die1, die2, die3, die4, die5, die6, blueDie, greenDie;
 
     @FXML
     TranslateTransition translate = new TranslateTransition();
     static Random rand = new Random();
+    public GameController() {
+        try {
+            InputStream a = new FileInputStream("C:/Users/Jaskaran/Desktop/VS Code/AP-Assignments/AP-Project-1/AP-Project/src/main/resources/com/example/approject/blue_token.png");
+            blueDie = new Image(a);
+            InputStream b = new FileInputStream("C:/Users/Jaskaran/Desktop/VS Code/AP-Assignments/AP-Project-1/AP-Project/src/main/resources/com/example/approject/green_token.png");
+            greenDie = new Image(b);
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
-    static int x;
+    static int y;
     @FXML
-    public void setPlayerNames(String player1, String player2){
+    public void setPlayerNames(String player1, String player2, int z){
         player1Label.setText(player1);
         player2Label.setText(player2);
-
+        y = z;
     }
 
     @FXML
@@ -90,8 +102,6 @@ public class GameController extends PlayerNames{
 
     @FXML
     void onClickReturn(ActionEvent event) {
-
-
         try {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Return to Main Menu");
@@ -146,10 +156,29 @@ public class GameController extends PlayerNames{
         });
         thread.start();
     }
-    void move() throws FileNotFoundException {
-        InputStream a = new FileInputStream("C:/Users/Jaskaran/Desktop/VS Code/AP-Assignments/AP-Project-1/AP-Project/src/main/resources/com/example/approject/blue_token.png");
-        Image blueDie = new Image(a);
-        InputStream b = new FileInputStream("C:/Users/Jaskaran/Desktop/VS Code/AP-Assignments/AP-Project-1/AP-Project/src/main/resources/com/example/approject/green_token.png");
-        Image greenDie = new Image(b);
+    void move(int x) throws FileNotFoundException {
+        HashMap<Integer, Integer> snakes = new HashMap<>();
+        HashMap<Integer, Integer> ladders = new HashMap<>();
+        snakes.put(24, 5);
+        snakes.put(43, 22);
+        snakes.put(56, 25);
+        snakes.put(60, 42);
+        snakes.put(69, 48);
+        snakes.put(86, 53);
+        snakes.put(90, 72);
+        snakes.put(94, 73);
+        snakes.put(96, 84);
+        snakes.put(98, 58);
+        ladders.put(3, 21);
+        ladders.put(8, 46);
+        ladders.put(16, 26);
+        ladders.put(29, 33);
+        ladders.put(37, 65);
+        ladders.put(50, 70);
+        ladders.put(61, 82);
+        ladders.put(64, 77);
+        ladders.put(76, 95);
+        ladders.put(89, 91);
+
     }
 }

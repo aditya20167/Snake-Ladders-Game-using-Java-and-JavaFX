@@ -57,7 +57,7 @@ public class PlayerNames {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Game.fxml"));
             root = loader.load();
             GameController gamer = loader.getController();
-            gamer.setPlayerNames(player1, player2);
+            gamer.setPlayerNames(player1, player2, firstRoll);
             gamer.setStart();
             gamer.setBoard(board);
             primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
