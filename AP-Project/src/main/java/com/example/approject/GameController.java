@@ -1,5 +1,6 @@
 package com.example.approject;
 
+import javafx.animation.PathTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +14,11 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.CubicCurveTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -22,7 +28,7 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.Random;
 
-public class GameController extends PlayerNames {
+public class GameController {
 
     @FXML
     private ImageView background;
@@ -75,7 +81,7 @@ public class GameController extends PlayerNames {
     @FXML
     TranslateTransition translate = new TranslateTransition();
     static Random rand = new Random();
-
+    static int pos;
     public GameController() {
         try {
             InputStream a = new FileInputStream("C:/Users/Jaskaran/Desktop/VS Code/AP-Assignments/AP-Project-1/AP-Project/src/main/resources/com/example/approject/blue_token.png");
@@ -128,7 +134,12 @@ public class GameController extends PlayerNames {
         Image firstDie = new Image(firstStream);
         dieImg.setImage(firstDie);
     }
-
+    @FXML
+    private Text Status;
+    @FXML
+    public void getCoordinates(MouseEvent event){
+        Status.setText("X: "+event.getX()+" Y: "+event.getY());
+    }
     @FXML
     void onDieRoll(ActionEvent event) {
         diceRoller.setDisable(true);
@@ -154,13 +165,22 @@ public class GameController extends PlayerNames {
     }
 
     @FXML
-    public void movePlayerTokenX (ImageView image,int moveBy){
-        TranslateTransition translate = new TranslateTransition();
-        translate.setNode(image);
-        translate.setDuration(Duration.millis(2000));
-        translate.setCycleCount(1);
-        translate.setByX(moveBy * 25);
-        translate.play();
+    public void movePlayerTokenX (ImageView image,float moveBy){
+//        TranslateTransition translate = new TranslateTransition();
+//        translate.setNode(image);
+//        translate.setDuration(Duration.millis(2000));
+//        translate.setCycleCount(1);
+//        translate.setByX(moveBy * 25);
+        Path path = new Path();
+        path.getElements().add(new MoveTo(moveBy, moveBy));
+        path.getElements().add(new CubicCurveTo(-50, 0, -50, 0, moveBy, moveBy + 50));
+//        path.getElements().add(new CubicCurveTo(200, 120, 0, 240, 200, 50));
+        PathTransition pathTransition = new PathTransition();
+        pathTransition.setDuration(Duration.millis(3000));
+        pathTransition.setPath(path);
+        pathTransition.setNode(image);
+        pathTransition.play();
+//        translate.play();
     }
 
     @FXML
@@ -171,9 +191,10 @@ public class GameController extends PlayerNames {
         translate.setCycleCount(1);
         translate.setByY(25);
         translate.play();
+
     }
 
-    void move(int x) throws FileNotFoundException {
+    void move(int x) {
         HashMap<Integer, Integer> snakes = new HashMap<>();
         HashMap<Integer, Integer> ladders = new HashMap<>();
         snakes.put(24, 5);
@@ -196,5 +217,14 @@ public class GameController extends PlayerNames {
         ladders.put(64, 77);
         ladders.put(76, 95);
         ladders.put(89, 91);
+        pos +=x;
+        if (ladders.containsKey(pos)) {
+            int y = ladders.get(pos);
+
+        }
+        if (snakes.containsKey(pos)) {
+            int y = snakes.get(pos);
+        }
+
     }
 }

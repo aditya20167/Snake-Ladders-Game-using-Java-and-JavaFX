@@ -5,8 +5,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="580.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.approject.GameController">
+<AnchorPane onMouseMoved="#getCoordinates" prefHeight="580.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.approject.GameController">
    <children>
       <ImageView fx:id="background" fitHeight="580.0" fitWidth="360.0" pickOnBounds="true">
          <image>
@@ -58,5 +59,6 @@
             <Image url="@arrow.png" />
          </image>
       </ImageView>
+      <Text fx:id="Status" fill="#fffdfd" layoutX="156.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status" />
    </children>
 </AnchorPane>
