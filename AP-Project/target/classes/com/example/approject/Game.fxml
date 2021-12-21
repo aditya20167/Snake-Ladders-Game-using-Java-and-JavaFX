@@ -14,19 +14,19 @@
             <Image url="@game_background.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="bluedie" fitHeight="33.0" fitWidth="37.0" layoutX="48.0" layoutY="404.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="board1" fitHeight="366.0" fitWidth="248.0" layoutX="56.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@blue_token.png" />
+            <Image url="@board_1.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="greendie" fitHeight="33.0" fitWidth="25.0" layoutX="65.0" layoutY="404.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="greendie" fitHeight="33.0" fitWidth="25.0" layoutX="63.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@green_token.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="board1" fitHeight="366.0" fitWidth="248.0" layoutX="56.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="bluedie" fitHeight="33.0" fitWidth="37.0" layoutX="50.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@board_1.png" />
+            <Image url="@blue_token.png" />
          </image>
       </ImageView>
       <ImageView fx:id="dieouter" fitHeight="53.0" fitWidth="57.0" layoutX="154.0" layoutY="455.0" pickOnBounds="true" preserveRatio="true">

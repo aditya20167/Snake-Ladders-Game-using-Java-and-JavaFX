@@ -50,22 +50,18 @@ public class PlayerNames {
             if (player2.equals("")) {
                 player2 = "Player 2";
             }
-            Random rand = new Random();
-            int firstRoll = rand.nextInt(3) + 1;
-            InputStream firstStream = new FileInputStream("C:/Users/Jaskaran/Desktop/VS Code/AP-Assignments/AP-Project-1/AP-Project/src/main/resources/com/example/approject/board_" + firstRoll + ".png");
-            Image board = new Image(firstStream);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Game.fxml"));
             root = loader.load();
             GameController gamer = loader.getController();
             gamer.setPlayerNames(player1, player2, firstRoll);
             gamer.setStart();
-            gamer.setBoard(board);
             primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
-        }   catch (IOException e) {
-            e.printStackTrace();
+        }
+        catch (IOException e) {
+            System.out.println(e);
         }
     }
     @FXML

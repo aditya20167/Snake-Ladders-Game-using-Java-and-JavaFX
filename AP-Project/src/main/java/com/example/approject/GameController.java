@@ -96,11 +96,6 @@ public class GameController extends PlayerNames{
     }
 
     @FXML
-    public void setBoard(Image board) throws FileNotFoundException {
-        board1.setImage(board);
-    }
-
-    @FXML
     void onClickReturn(ActionEvent event) {
         try {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -129,7 +124,7 @@ public class GameController extends PlayerNames{
         translate.setByY(25);
         translate.play();
         int firstRoll = rand.nextInt(6) + 1;
-        InputStream firstStream = new FileInputStream("C:/Users/Jaskaran/Desktop/VS Code/AP-Assignments/AP-Project-1/AP-Project/src/main/resources/com/example/approject/dice_" + firstRoll + ".png");
+        InputStream firstStream = new FileInputStream("AP-Project/src/main/resources/com/example/approject/dice_" + firstRoll + ".png");
         Image firstDie = new Image(firstStream);
         dieImg.setImage(firstDie);
     }
@@ -142,12 +137,14 @@ public class GameController extends PlayerNames{
             try {
                 for (int i = 0; i < 20; i++) {
                     int nextRoll = rand.nextInt(6) + 1;
-                    InputStream stream = new FileInputStream("C:/Users/Jaskaran/Desktop/VS Code/AP-Assignments/AP-Project-1/AP-Project/src/main/resources/com/example/approject/dice_" + nextRoll + ".png");
+                    InputStream stream = new FileInputStream("AP-Project/src/main/resources/com/example/approject/dice_" + nextRoll + ".png");
                     Image diceRoll = new Image(stream);
                     dieImg.setImage(diceRoll);
-                    Thread.sleep(100);
+                    Thread.sleep(30);
+                    x = nextRoll;
                 }
                 diceRoller.setDisable(false);
+//                movePlayerTokenX(bluedie, x);
 //                translate.play();
             }
             catch (Exception e){
@@ -156,6 +153,7 @@ public class GameController extends PlayerNames{
         });
         thread.start();
     }
+<<<<<<< Updated upstream
     void move(int x) throws FileNotFoundException {
         HashMap<Integer, Integer> snakes = new HashMap<>();
         HashMap<Integer, Integer> ladders = new HashMap<>();
@@ -180,5 +178,33 @@ public class GameController extends PlayerNames{
         ladders.put(76, 95);
         ladders.put(89, 91);
 
+=======
+//    void move() throws FileNotFoundException {
+//        InputStream a = new FileInputStream("C:/Users/Jaskaran/Desktop/VS Code/AP-Assignments/AP-Project-1/AP-Project/src/main/resources/com/example/approject/blue_token.png");
+//        Image blueDie = new Image(a);
+//        InputStream b = new FileInputStream("C:/Users/Jaskaran/Desktop/VS Code/AP-Assignments/AP-Project-1/AP-Project/src/main/resources/com/example/approject/green_token.png");
+//        Image greenDie = new Image(b);
+//    }
+
+    @FXML
+    public void movePlayerTokenX(ImageView image, int moveBy){
+        TranslateTransition translate = new TranslateTransition();
+        translate.setNode(image);
+        translate.setDuration(Duration.millis(2000));
+        translate.setCycleCount(1);
+        translate.setByX(moveBy*25);
+        translate.play();
     }
+    @FXML
+    public void movePlayerTokenY(ImageView image, int moveBy){
+        TranslateTransition translate = new TranslateTransition();
+        translate.setNode(image);
+        translate.setDuration(Duration.millis(2000));
+        translate.setCycleCount(1);
+        translate.setByY(25);
+        translate.play();
+>>>>>>> Stashed changes
+    }
+    /*
+     */
 }
