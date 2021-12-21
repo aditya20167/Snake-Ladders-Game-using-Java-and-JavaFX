@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.Random;
 
-public class GameController extends PlayerNames{
+public class GameController extends PlayerNames {
 
     @FXML
     private ImageView background;
@@ -75,24 +75,24 @@ public class GameController extends PlayerNames{
     @FXML
     TranslateTransition translate = new TranslateTransition();
     static Random rand = new Random();
+
     public GameController() {
         try {
             InputStream a = new FileInputStream("C:/Users/Jaskaran/Desktop/VS Code/AP-Assignments/AP-Project-1/AP-Project/src/main/resources/com/example/approject/blue_token.png");
             blueDie = new Image(a);
             InputStream b = new FileInputStream("C:/Users/Jaskaran/Desktop/VS Code/AP-Assignments/AP-Project-1/AP-Project/src/main/resources/com/example/approject/green_token.png");
             greenDie = new Image(b);
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    static int y;
+    static int x;
+
     @FXML
-    public void setPlayerNames(String player1, String player2, int z){
+    public void setPlayerNames(String player1, String player2) {
         player1Label.setText(player1);
         player2Label.setText(player2);
-        y = z;
     }
 
     @FXML
@@ -103,8 +103,8 @@ public class GameController extends PlayerNames{
             alert.setHeaderText("You are going to exit the game!!");
             alert.setContentText("Are you sure want to exit?");
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Menu.fxml")));
-            if(alert.showAndWait().get() == ButtonType.OK){
-                stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            if (alert.showAndWait().get() == ButtonType.OK) {
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
@@ -146,14 +146,33 @@ public class GameController extends PlayerNames{
                 diceRoller.setDisable(false);
 //                movePlayerTokenX(bluedie, x);
 //                translate.play();
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 System.out.println(e);
             }
         });
         thread.start();
     }
-<<<<<<< Updated upstream
+
+    @FXML
+    public void movePlayerTokenX (ImageView image,int moveBy){
+        TranslateTransition translate = new TranslateTransition();
+        translate.setNode(image);
+        translate.setDuration(Duration.millis(2000));
+        translate.setCycleCount(1);
+        translate.setByX(moveBy * 25);
+        translate.play();
+    }
+
+    @FXML
+    public void movePlayerTokenY (ImageView image,int moveBy){
+        TranslateTransition translate = new TranslateTransition();
+        translate.setNode(image);
+        translate.setDuration(Duration.millis(2000));
+        translate.setCycleCount(1);
+        translate.setByY(25);
+        translate.play();
+    }
+
     void move(int x) throws FileNotFoundException {
         HashMap<Integer, Integer> snakes = new HashMap<>();
         HashMap<Integer, Integer> ladders = new HashMap<>();
@@ -177,34 +196,5 @@ public class GameController extends PlayerNames{
         ladders.put(64, 77);
         ladders.put(76, 95);
         ladders.put(89, 91);
-
-=======
-//    void move() throws FileNotFoundException {
-//        InputStream a = new FileInputStream("C:/Users/Jaskaran/Desktop/VS Code/AP-Assignments/AP-Project-1/AP-Project/src/main/resources/com/example/approject/blue_token.png");
-//        Image blueDie = new Image(a);
-//        InputStream b = new FileInputStream("C:/Users/Jaskaran/Desktop/VS Code/AP-Assignments/AP-Project-1/AP-Project/src/main/resources/com/example/approject/green_token.png");
-//        Image greenDie = new Image(b);
-//    }
-
-    @FXML
-    public void movePlayerTokenX(ImageView image, int moveBy){
-        TranslateTransition translate = new TranslateTransition();
-        translate.setNode(image);
-        translate.setDuration(Duration.millis(2000));
-        translate.setCycleCount(1);
-        translate.setByX(moveBy*25);
-        translate.play();
     }
-    @FXML
-    public void movePlayerTokenY(ImageView image, int moveBy){
-        TranslateTransition translate = new TranslateTransition();
-        translate.setNode(image);
-        translate.setDuration(Duration.millis(2000));
-        translate.setCycleCount(1);
-        translate.setByY(25);
-        translate.play();
->>>>>>> Stashed changes
-    }
-    /*
-     */
 }
