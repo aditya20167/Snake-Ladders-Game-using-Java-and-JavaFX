@@ -18,7 +18,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.CubicCurveTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
-import javafx.scene.shape.Polyline;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -82,18 +81,27 @@ public class GameController {
     @FXML
     TranslateTransition translate = new TranslateTransition();
     static Random rand = new Random();
-    static int pos;
+
+    public void setDiceImages() throws FileNotFoundException{
+        die1 = new Image("dice_1.png");
+        die2 = new Image("dice_2.png");
+        die3 = new Image("dice_3.png");
+        die4 = new Image("dice_4.png");
+        die5 = new Image("dice_5.png");
+        die6 = new Image("dice_6.png");
+    }
+
     public GameController() {
         try {
-            InputStream a = new FileInputStream("C:/Users/Jaskaran/Desktop/VS Code/AP-Assignments/AP-Project-1/AP-Project/src/main/resources/com/example/approject/blue_token.png");
+            InputStream a = new FileInputStream("AP-Project/src/main/resources/com/example/approject/blue_token.png");
             blueDie = new Image(a);
-            InputStream b = new FileInputStream("C:/Users/Jaskaran/Desktop/VS Code/AP-Assignments/AP-Project-1/AP-Project/src/main/resources/com/example/approject/green_token.png");
+            InputStream b = new FileInputStream("AP-Project/src/main/resources/com/example/approject/green_token.png");
             greenDie = new Image(b);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
-    private int x, flag;
+    private int x;
     @FXML
     private Text Status;
     @FXML
@@ -139,77 +147,92 @@ public class GameController {
         Image firstDie = new Image(firstStream);
         dieImg.setImage(firstDie);
     }
+
+    static int posBlue = 1;
+    static int posGreen = 1;
+
+    public static int getPosBlue() {
+        return posBlue;
+    }
+
+    public static void setPosBlue() {
+        GameController.posBlue += 1;
+    }
+
+    public static int getRowBlue() {
+        return rowBlue;
+    }
+
+    public static void setRowBlue() {
+        GameController.rowBlue+=1;
+    }
+
     @FXML
     void onDieRoll(ActionEvent event) {
         diceRoller.setDisable(true);
-        translate.stop();
-        Thread thread = new Thread(() -> {
-            try {
-                for (int i = 0; i < 10; i++) {
-                    int nextRoll = rand.nextInt(6) + 1;
-                    InputStream stream = new FileInputStream("AP-Project/src/main/resources/com/example/approject/dice_" + nextRoll + ".png");
-                    Image diceRoll = new Image(stream);
-                    dieImg.setImage(diceRoll);
-                    Thread.sleep(30);
-                    x = nextRoll;
+        Thread th1 = new Thread(()->{
+                try{
+                    for (int i = 0; i < 20; i++) {
+                        int dieRoll = rand.nextInt(6) + 1;
+                        InputStream stream = new FileInputStream("AP-Project/src/main/resources/com/example/approject/dice_" + dieRoll + ".png");
+                        Image image = new Image(stream);
+                        dieImg.setImage(image);
+                        Thread.sleep(50);
+                        x = dieRoll;
+                    }
+                    diceRoller.setDisable(false);
+                    /*
+                    while(){
+                        if(blue){
+                        moveblue;}
+                        else if(green){
+                        movegreen;}
+                    }
+                     */
+//                    moveBlue(x);
+                    Thread thread = new Thread(new Player(x, bluedie, rowBlue, posBlue));
+                    thread.start();
+                    Thread.sleep(200);
                 }
-                diceRoller.setDisable(false);
-                System.out.println("flag: " + flag);
-                if (flag == 1) {
-                    movePlayerTokenY(bluedie, x);
+                catch (Exception e) {
+                    System.out.println(e);
                 }
-                if(x == 1) {
-                    movePlayerTokenY(bluedie, x);
-                    flag = 1;
-                    x+=1;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         });
-        thread.start();
+        th1.start();
+    }
+
+
+    public void movePlayerTokenX (ImageView image, int row){
+//        TranslateTransition translate = new TranslateTransition();
+//        translate.setNode(image);
+//        translate.setDuration(Duration.millis(2000));
+//        translate.setCycleCount(1);
+        if(row%2==0){
+//            translate.setByX(-25);
+            image.setTranslateX(image.getTranslateX()-25);
+        }
+        else {
+//            translate.setByX(25);
+            image.setTranslateX(image.getTranslateX()+25);
+        }
+//        translate.play();
     }
 
     @FXML
-    public void movePlayerTokenX (ImageView image,int moveBy){
-        TranslateTransition translate = new TranslateTransition();
-        translate.setNode(image);
-        translate.setDuration(Duration.millis(2000));
-        translate.setCycleCount(1);
-        translate.setByX(moveBy * 25);
-//        Path path = new Path();
-//        Polyline polyline = new Polyline();
-//        polyline.getPoints().addAll(new Double[]{
-//                0.0, 0.0,
-//                0.0, 0.0,
-//                0.0, 0.0,
-//                0.0, 0.0});
-//        path.getElements().add(new Polyline(0, 0, 0, 25, 25, 25, 25, 0, 25, 0, 0));
-//        path.getElements().add(new MoveTo(moveBy, moveBy));
-//        path.getElements().add(new CubicCurveTo(-50, 0, -50, 0, moveBy, moveBy + 50));
-//        path.getElements().add(new CubicCurveTo(200, 120, 0, 240, 200, 50));
-//        PathTransition pathTransition = new PathTransition();
-//        pathTransition.setDuration(Duration.millis(3000));
-//        pathTransition.setPath(path);
-//        pathTransition.setNode(image);
-//        pathTransition.play();
-        translate.play();
+    public void movePlayerTokenY (ImageView image){
+//        TranslateTransition translate = new TranslateTransition();
+//        translate.setNode(image);
+//        translate.setDuration(Duration.millis(2000));
+//        translate.setCycleCount(1);
+        image.setTranslateY(image.getTranslateY()-25);
+//        translate.play();
+
     }
 
-    @FXML
-    public void movePlayerTokenY (ImageView image,int moveBy){
-        TranslateTransition translate = new TranslateTransition();
-        translate.setNode(image);
-        translate.setDuration(Duration.millis(2000));
-        translate.setCycleCount(1);
-        translate.setByY(-35);
-        translate.play();
-        System.out.println("moveBy" + moveBy);
-    }
+    HashMap<Integer, Integer> snakes = new HashMap<>();
+    HashMap<Integer, Integer> ladders = new HashMap<>();
 
-    void move(int x) {
-        HashMap<Integer, Integer> snakes = new HashMap<>();
-        HashMap<Integer, Integer> ladders = new HashMap<>();
+    void setHashMap() {
         snakes.put(24, 5);
         snakes.put(43, 22);
         snakes.put(56, 25);
@@ -230,13 +253,196 @@ public class GameController {
         ladders.put(64, 77);
         ladders.put(76, 95);
         ladders.put(89, 91);
-        pos +=x;
-        if (ladders.containsKey(pos)) {
-            int y = ladders.get(pos);
+    }
+
+    boolean blueMoves = true;
+    boolean greenMoves = false;
+
+
+
+    static int rowBlue = 1;
+    static int rowGreen = 1;
+
+    void moveBlue(int moveBy){
+        int ctr = moveBy;
+        while (ctr!=0){
+            if(posBlue%10!=0){
+                movePlayerTokenX(bluedie, rowBlue);
+                posBlue+=1;
+            }
+            else if(posBlue%10==0){
+                movePlayerTokenY(bluedie);
+                posBlue+=1;
+                rowBlue+=1;
+            }
+            ctr-=1;
         }
-        if (snakes.containsKey(pos)) {
-            int y = snakes.get(pos);
+        if(moveBy!=6){
+            blueMoves = false;
+            greenMoves = true;
         }
+        else {
+            blueMoves = true;
+            greenMoves = false;
+        }
+    }
+
+    void moveGreen(int moveBy){
+        int ctr = moveBy;
+        while (ctr!=0){
+            if(posGreen%10!=0){
+                movePlayerTokenX(greendie, rowGreen);
+                posGreen+=1;
+            }
+            else if(posGreen%10==0){
+                movePlayerTokenY(greendie);
+                posGreen+=1;
+                rowGreen+=1;
+            }
+            ctr-=1;
+        }
+
+        if(moveBy!=6){
+            greenMoves = false;
+            blueMoves = true;
+        }
+        else {
+            greenMoves = true;
+            blueMoves = false;
+        }
+    }
+
+    public Image getDie1(){
+        return this.die1;
+    }
+    public Image getDie2(){
+        return this.die2;
+    }
+    public Image getDie3(){
+        return this.die3;
+    }
+    public Image getDie4(){
+        return this.die4;
+    }
+    public Image getDie5(){
+        return this.die5;
+    }
+    public Image getDie6(){
+        return this.die6;
+    }
+    public TranslateTransition getTranslate(){
+        return this.translate;
+    }
+
+    public Button getDiceRoller() {
+        return diceRoller;
+    }
+
+    public ImageView getDieImg(){
+        return this.dieImg;
+    }
+
+    public int getX(){
+        return this.x;
+    }
+
+    public void setX(int x){
+        this.x = x;
+    }
+}
+
+class Player implements Runnable{
+    int moveBy;
+    ImageView image;
+    int row;
+    int pos;
+    boolean moves;
+    boolean halt;
+    Player(int moveBy, ImageView image, int row, int pos){
+        this.moveBy = moveBy;
+        this.image = image;
+        this.row = row;
+        this.pos = pos;
+    }
+
+    public void movePlayerTokenX (ImageView image, int row){
+        TranslateTransition translate = new TranslateTransition();
+        translate.setNode(image);
+//        translate.setDuration(Duration.millis(2000));
+        translate.setCycleCount(1);
+        if(row%2==0){
+            translate.setByX(-30);
+//            image.setTranslateX(image.getTranslateX()-25);
+        }
+        else {
+            translate.setByX(30);
+//            image.setTranslateX(image.getTranslateX()+25);
+        }
+        translate.play();
+    }
+
+    public void movePlayerTokenY (ImageView image){
+        TranslateTransition translate = new TranslateTransition();
+        translate.setNode(image);
+//        translate.setDuration(Duration.millis(2000));
+        translate.setCycleCount(1);
+//        image.setTranslateY(image.getTranslateY()-25);
+        translate.setByY(-40);
+        translate.play();
+    }
+
+    @Override
+    public void run(){
+        int ctr = moveBy;
+        while (ctr!=0){
+            if(GameController.getPosBlue()%10!=0){
+                movePlayerTokenX(image, GameController.getRowBlue());
+                GameController.setPosBlue();
+            }
+            else {
+                movePlayerTokenY(image);
+                GameController.setPosBlue();
+                GameController.setRowBlue();
+            }
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            ctr-=1;
+            System.out.println("pos: " + GameController.getPosBlue());
+            System.out.println("Row: " + GameController.getRowBlue());
+        }
+        if(moveBy!=6){
+            moves = false;
+            halt = true;
+        }
+        else {
+            moves = true;
+            halt = false;
+        }
+    }
+
+    public int getPos() {
+        return pos;
+    }
+
+    public void setPos() {
+        this.pos+=1;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow() {
+        this.row+=1;
+    }
+}
+
+class DieRoll implements Runnable{
+    @Override
+    public void run(){
 
     }
 }
