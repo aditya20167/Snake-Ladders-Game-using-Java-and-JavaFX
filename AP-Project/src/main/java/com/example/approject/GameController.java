@@ -187,13 +187,11 @@ public class GameController {
                     PlayerGreen green = new PlayerGreen(getX(), greendie, rowGreen, posGreen, greenMoves);
                     Thread play1 = new Thread(blue);
                     Thread play2 = new Thread(green);
-                    while (getPosBlue()!=100 || getPosGreen()!=100){
-                        if(blueMoves && !greenMoves){
-                            play1.start();
-                        }
-                        else if(greenMoves && !blueMoves){
-                            play2.start();
-                        }
+                    if(blueMoves && !greenMoves){
+                        play1.start();
+                    }
+                    else {
+                        play2.start();
                     }
                 }
                 catch (Exception e) {
@@ -201,7 +199,9 @@ public class GameController {
                 }
         });
         th1.start();
-
+        if(getPosBlue()==100 || getPosGreen()==100){
+            //move to new scene and give option to play a new game or go to home screen.
+        }
     }
 
     static int rowBlue = 1;
