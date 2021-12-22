@@ -6,19 +6,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Objects;
-import java.util.Random;
 
 public class PlayerNames {
     @FXML
@@ -35,10 +27,10 @@ public class PlayerNames {
 
     @FXML
     private TextField player1Name;
+
     @FXML
     private TextField player2Name;
 
-    private String name1, name2;
     @FXML
     void onPlayButtonClick(ActionEvent event) {
         try {
@@ -61,7 +53,7 @@ public class PlayerNames {
             primaryStage.show();
         }
         catch (IOException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
     @FXML

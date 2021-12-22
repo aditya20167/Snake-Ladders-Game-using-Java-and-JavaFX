@@ -43,7 +43,7 @@ public class MenuController {
     private Parent root;
 
     @FXML
-    void onExitClick(ActionEvent event) {
+    void onExitClick() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("EXIT");
         alert.setHeaderText("You are going to exit the game!!");
