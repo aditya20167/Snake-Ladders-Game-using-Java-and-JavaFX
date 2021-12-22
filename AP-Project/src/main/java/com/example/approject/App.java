@@ -20,7 +20,6 @@ public class App extends Application {
             primaryStage.getIcons().add(icon);
             Scene scene = new Scene(root);
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("Loader.css")).toExternalForm());
-//            primaryStage.setFullScreen(true);
             primaryStage.setResizable(false);
             primaryStage.setTitle("Snakes & Ladders");
             primaryStage.setScene(scene);

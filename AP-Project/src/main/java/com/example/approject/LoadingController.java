@@ -61,7 +61,7 @@ public class LoadingController {
                     }
                 });
             } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
         });
         thread.start();

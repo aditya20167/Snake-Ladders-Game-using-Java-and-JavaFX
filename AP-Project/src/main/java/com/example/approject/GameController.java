@@ -15,9 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.CubicCurveTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
+import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -135,6 +133,7 @@ public class GameController {
         translate.setAutoReverse(true);
         translate.setByY(25);
         translate.play();
+        setHashMap();
         int firstRoll = rand.nextInt(6) + 1;
         InputStream firstStream = new FileInputStream("AP-Project/src/main/resources/com/example/approject/dice_" + firstRoll + ".png");
         Image firstDie = new Image(firstStream);
@@ -148,16 +147,16 @@ public class GameController {
         return posBlue;
     }
 
-    public static void setPosBlue() {
-        posBlue+=1;
+    public static void setPosBlue(int x) {
+        posBlue+=x;
     }
 
     public static int getPosGreen() {
         return posGreen;
     }
 
-    public static void setPosGreen() {
-        posGreen+=1;
+    public static void setPosGreen(int x) {
+        posGreen+=x;
     }
 
     @FXML
@@ -165,7 +164,7 @@ public class GameController {
         diceRoller.setDisable(true);
         Thread th1 = new Thread(()->{
                 try{
-                    for (int i = 0; i < 20; i++) {
+                    for (int i = 0; i < 10; i++) {
                         int dieRoll = rand.nextInt(6) + 1;
                         InputStream stream = new FileInputStream("AP-Project/src/main/resources/com/example/approject/dice_" + dieRoll + ".png");
                         Image image = new Image(stream);
@@ -195,7 +194,7 @@ public class GameController {
                     }
                 }
                 catch (Exception e) {
-                    System.out.println(e);
+                    e.printStackTrace();
                 }
         });
         th1.start();
@@ -223,8 +222,8 @@ public class GameController {
         rowBlue+=1;
     }
 
-    HashMap<Integer, Integer> snakes = new HashMap<>();
-    HashMap<Integer, Integer> ladders = new HashMap<>();
+    static HashMap<Integer, Integer> snakes = new HashMap<>();
+    static HashMap<Integer, Integer> ladders = new HashMap<>();
 
     void setHashMap() {
         snakes.put(24, 5);
@@ -272,27 +271,105 @@ public class GameController {
     public void setX(int x){
         this.x = x;
     }
-}
 
-class PlayerBlue implements Runnable{
-    int moveBy;
-    ImageView image;
-    int row;
-    int pos;
-    boolean moves;
-
-    PlayerBlue(int moveBy, ImageView image, int row, int pos, boolean moves){
-        this.moveBy = moveBy;
-        this.image = image;
-        this.row = row;
-        this.pos = pos;
-        this.moves = moves;
+    public static HashMap getSnakes() {
+        return snakes;
     }
-
-    public void movePlayerTokenX (ImageView image, int row){
+    public static HashMap getLadders() {
+        return ladders;
+    }
+    public static int snl(ImageView image, int pos){
+        int pos1 = 0;
+        PathTransition pathTransition = new PathTransition();
+        TranslateTransition t = new TranslateTransition();
+        Polyline polyline = new Polyline();
+        Path path = new Path();
+        if(snakes.containsKey(pos)){
+            pos1 = snakes.get(pos) - pos;
+            if (pos == 24) {
+                polyline.getPoints().addAll(167.2, 336.8, 146.4, 367.2, 168.1, 379.6, 161.6, 384.8);
+            }
+            else if (pos == 43) {
+                polyline.getPoints().addAll(93.6, 265.6, 114.4, 294.4, 93.6, 305.6, 91.2, 317.6);
+            }
+            else if (pos == 56) {
+                polyline.getPoints().addAll(177.6, 241.6, 162.4, 268.8, 175.2, 295.2, 163.2, 316.8);
+            }
+            else if (pos == 60) {
+                polyline.getPoints().addAll(91.2, 221.6, 69.6, 243.2, 82.4, 241.2, 92.8, 247.2);
+            }
+            else if (pos == 69) {
+                polyline.getPoints().addAll(240.8, 190.4, 263.2, 222.4, 241.6, 234.4, 237.6, 247.2);
+            }
+            else if (pos == 86) {
+                polyline.getPoints().addAll(223.2, 124.2, 192.8, 164.4, 235.2, 190.4, 235.2, 214.4);
+            }
+            else if (pos == 90) {
+                polyline.getPoints().addAll(264.8, 118.4, 287.2, 141.8, 274.4, 147.2, 262.4, 142.4);
+            }
+            else if (pos == 94) {
+                polyline.getPoints().addAll(247.2, 87.2, 225.6, 119.2, 247.2, 129.6, 238.4, 141.6);
+            }
+            else if (pos == 96) {
+                polyline.getPoints().addAll(142.4, 84.2, 164.8, 104.8, 152.8, 112.8, 139.2, 106.4);
+            }
+            else if (pos == 98) {
+                polyline.getPoints().addAll(109.6, 95.2, 123.2, 138.4, 112.2, 173.8, 115.2, 214.4);
+            }
+            pathTransition.setPath(polyline);
+        }
+        else if(ladders.containsKey(pos)){
+            pos1 = ladders.get(pos) - pos;
+//            path.getElements().add(new MoveTo(image.getX(), image.getY()));
+            if (pos == 3) {
+                t.setToX(64.0);
+                t.setToY(312.0);
+            }
+            else if (pos == 8) {
+                t.setToX(191.2);
+                t.setToY(246.4);
+            }
+            else if (pos == 16) {
+                t.setToX(189.6);
+                t.setToY(316.8);
+            }
+            else if (pos == 29) {
+                t.setToX(242.4);
+                t.setToY(282.4);
+            }
+            else if (pos == 37) {
+                path.getElements().add(new LineTo(164.8, 178.4));
+            }
+            else if (pos == 50) {
+                path.getElements().add(new LineTo(288.8, 177.6));
+            }
+            else if (pos == 61) {
+                path.getElements().add(new LineTo(89.6, 108.0));
+            }
+            else if (pos == 64) {
+                path.getElements().add(new LineTo(138.4, 139.2));
+            }
+            else if (pos == 76) {
+                path.getElements().add(new LineTo(187.2, 72.0));
+            }
+            else if (pos == 89) {
+                path.getElements().add(new LineTo(288.8, 69.6));
+            }
+            pathTransition.setPath(path);
+        }
+        pathTransition.setDuration(Duration.seconds(1));
+        pathTransition.setNode(image);
+        pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+//        pathTransition.play();
+        t.setDuration(Duration.millis(1000));
+        t.setNode(image);
+        t.play();
+        return pos1;
+    }
+    public static void movePlayerTokenX(ImageView image, int row){
         TranslateTransition translate = new TranslateTransition();
         translate.setNode(image);
-        translate.setCycleCount(1);
+//        translate.setCycleCount(1);
         if(row%2==0){
             translate.setByX(-28.8);
         }
@@ -302,39 +379,70 @@ class PlayerBlue implements Runnable{
         translate.play();
     }
 
-    public void movePlayerTokenY (ImageView image){
+    public static void movePlayerTokenY(ImageView image){
         TranslateTransition translate = new TranslateTransition();
         translate.setNode(image);
-        translate.setCycleCount(1);
+//        translate.setCycleCount(1);
         translate.setByY(-36);
         translate.play();
+    }
+}
+
+class PlayerBlue implements Runnable{
+    int moveBy;
+    ImageView image;
+    int row;
+    int pos;
+    boolean moves;
+    static int flag = 0;
+
+    PlayerBlue(int moveBy, ImageView image, int row, int pos, boolean moves){
+        this.moveBy = moveBy;
+        this.image = image;
+        this.row = row;
+        this.pos = pos;
+        this.moves = moves;
     }
 
     @Override
     public void run(){
         int ctr = moveBy;
-        while (ctr!=0){
-            if(GameController.getPosBlue()%10!=0){
-                movePlayerTokenX(image, GameController.getRowBlue());
-                GameController.setPosBlue();
+        if (flag == 0){
+            if(moveBy == 1) {
+                TranslateTransition translate = new TranslateTransition();
+                translate.setNode(image);
+                translate.setCycleCount(1);
+                translate.setByY(-30);
+                translate.play();
+                flag = 1;
             }
-            else {
-                movePlayerTokenY(image);
-                GameController.setPosBlue();
-                GameController.setRowBlue();
-            }
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            ctr-=1;
-            System.out.print("Pos of Blue: " + GameController.getPosBlue());
-            System.out.print("\tRow of Blue: " + GameController.getRowBlue());
-            System.out.println();
         }
-        GameController.blueMoves = false;
-        GameController.greenMoves = true;
+        else if (flag == 1) {
+            while (ctr != 0) {
+                if (GameController.getPosBlue() % 10 != 0) {
+                    GameController.movePlayerTokenX(image, GameController.getRowBlue());
+                    GameController.setPosBlue(1);
+                } else {
+                    GameController.movePlayerTokenY(image);
+                    GameController.setPosBlue(1);
+                    GameController.setRowBlue();
+                }
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                ctr -= 1;
+                System.out.print("Pos of Blue: " + GameController.getPosBlue());
+                System.out.print("\tRow of Blue: " + GameController.getRowBlue());
+                System.out.println();
+            }
+            if (GameController.getSnakes().containsKey(GameController.getPosBlue()) || GameController.getLadders().containsKey(GameController.getPosBlue())) {
+                GameController.setPosBlue(GameController.snl(image, GameController.getPosBlue()));
+            }
+            GameController.blueMoves = false;
+            GameController.greenMoves = true;
+        }
     }
 }
 
@@ -345,7 +453,7 @@ class PlayerGreen implements Runnable{
     int row;
     int pos;
     boolean moves;
-
+    static int flag = 0;
     PlayerGreen(int moveBy, ImageView image, int row, int pos, boolean moves){
         this.moveBy = moveBy;
         this.image = image;
@@ -354,51 +462,44 @@ class PlayerGreen implements Runnable{
         this.moves = moves;
     }
 
-    public void movePlayerTokenX (ImageView image, int row){
-        TranslateTransition translate = new TranslateTransition();
-        translate.setNode(image);
-        translate.setCycleCount(1);
-        if(row%2==0){
-            translate.setByX(-28.8);
-        }
-        else {
-            translate.setByX(28.8);
-        }
-        translate.play();
-    }
-
-    public void movePlayerTokenY (ImageView image){
-        TranslateTransition translate = new TranslateTransition();
-        translate.setNode(image);
-        translate.setCycleCount(1);
-        translate.setByY(-36);
-        translate.play();
-    }
-
     @Override
     public void run(){
         int ctr = moveBy;
-        while (ctr!=0){
-            if(GameController.getPosGreen()%10!=0){
-                movePlayerTokenX(image, GameController.getRowGreen());
-                GameController.setPosGreen();
+        if (flag == 0){
+            if(moveBy == 1) {
+                TranslateTransition translate = new TranslateTransition();
+                translate.setNode(image);
+                translate.setCycleCount(1);
+                translate.setByY(-30);
+                translate.play();
+                flag = 1;
             }
-            else {
-                movePlayerTokenY(image);
-                GameController.setPosGreen();
-                GameController.setRowGreen();
-            }
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            ctr-=1;
-            System.out.print("pos: " + GameController.getPosGreen());
-            System.out.print("\tRow: " + GameController.getRowGreen());
-            System.out.println();
         }
-        GameController.blueMoves = true;
-        GameController.greenMoves = false;
+        else if (flag == 1) {
+            while (ctr != 0) {
+                if (GameController.getPosGreen() % 10 != 0) {
+                    GameController.movePlayerTokenX(image, GameController.getRowGreen());
+                    GameController.setPosGreen(1);
+                } else {
+                    GameController.movePlayerTokenY(image);
+                    GameController.setPosGreen(1);
+                    GameController.setRowGreen();
+                }
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                ctr -= 1;
+                System.out.print("pos: " + GameController.getPosGreen());
+                System.out.print("\tRow: " + GameController.getRowGreen());
+                System.out.println();
+            }
+            if (GameController.getSnakes().containsKey(GameController.getPosGreen()) || GameController.getLadders().containsKey(GameController.getPosGreen())) {
+                GameController.setPosGreen(GameController.snl(image, GameController.getPosGreen()));
+            }
+            GameController.blueMoves = true;
+            GameController.greenMoves = false;
+        }
     }
 }
