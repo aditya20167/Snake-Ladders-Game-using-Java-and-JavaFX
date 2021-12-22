@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class PlayerNames {
+
     @FXML
     private Button playbutton;
     @FXML
@@ -21,13 +22,10 @@ public class PlayerNames {
     private Scene scene;
     @FXML
     private Parent root;
-
     @FXML
     private Button returnbutton;
-
     @FXML
     private TextField player1Name;
-
     @FXML
     private TextField player2Name;
 

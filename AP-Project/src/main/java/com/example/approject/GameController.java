@@ -24,54 +24,46 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.Random;
 
-public class GameController {
+public class GameController extends PlayerNames{
 
     @FXML
     private ImageView arrow;
-
     @FXML
     private ImageView bluedie;
-
     @FXML
     private Button diceRoller;
-
     @FXML
     private ImageView dieImg;
-
     @FXML
     private ImageView greendie;
-
     @FXML
     private Label player1Label;
-
     @FXML
     private Label player2Label;
-
     @FXML
     private Pane pane;
-
     @FXML
     private Stage stage;
-
     @FXML
     private Scene scene;
-
     @FXML
     private Parent root;
-
+    @FXML
+    private Text Status;
     @FXML
     TranslateTransition translate = new TranslateTransition();
     static Random rand = new Random();
     private int x;
     private String bluePlayer;
     private String greenPlayer;
+    private static int posBlue = 1;
+    private static int posGreen = 1;
 
-    @FXML
-    private Text Status;
     @FXML
     public void getCoordinates(MouseEvent event){
         Status.setText("X: "+event.getX()+" Y: "+event.getY());
     }
+
     @FXML
     public void setPlayerNames(String player1, String player2) {
         player1Label.setText(player1);
@@ -116,24 +108,19 @@ public class GameController {
         Image firstDie = new Image(firstStream);
         dieImg.setImage(firstDie);
     }
-    private static int posBlue = 1;
-    private static int posGreen = 1;
-
     public static int getPosBlue() {
         return posBlue;
     }
-
     public static void setPosBlue(int x) {
         posBlue+=x;
     }
-
     public static int getPosGreen() {
         return posGreen;
     }
-
     public static void setPosGreen(int x) {
         posGreen+=x;
     }
+
     public String getBluePlayer() {
         return bluePlayer;
     }
@@ -151,23 +138,25 @@ public class GameController {
         this.greenPlayer = greenPlayer;
         System.out.println(greenPlayer);
     }
+
     public String getWinner(){
         if(posGreen==100 && posBlue!=100){
             return getGreenPlayer();
         }
         return getBluePlayer();
     }
+
     @FXML
     void onDieRoll() {
         diceRoller.setDisable(true);
         Thread th1 = new Thread(()->{
                 try{
-                    for (int i = 0; i < 10; i++) {
+                    for (int i = 0; i < 15; i++) {
                         int dieRoll = rand.nextInt(6) + 1;
                         InputStream stream = new FileInputStream("AP-Project/src/main/resources/com/example/approject/dice_" + dieRoll + ".png");
                         Image image = new Image(stream);
                         dieImg.setImage(image);
-                        Thread.sleep(100);
+                        Thread.sleep(50);
                         x = dieRoll;
                     }
                     diceRoller.setDisable(false);
@@ -230,7 +219,6 @@ public class GameController {
     public int getX(){
         return this.x;
     }
-
     public static HashMap getSnakes() {
         return snakes;
     }
@@ -260,7 +248,6 @@ public class GameController {
                 y+=70;
             }
             else if (pos == 43) {
-//                polyline.getPoints().addAll(93.6, 265.6, 114.4, 294.4, 93.6, 305.6, 91.2, 317.6);
                 t1.setToX(x-25);t1.setToY(y+20);
                 t2.setFromX(x-25);t2.setFromY(y+20);
                 t2.setToX(x);t2.setToY(y+50);
@@ -272,31 +259,28 @@ public class GameController {
                 y+=50;
             }
             else if (pos == 56) {
-//                polyline.getPoints().addAll(177.6, 241.6, 162.4, 268.8, 175.2, 295.2, 163.2, 316.8);
                 t1.setToX(x+10);t1.setToY(y+30);
                 t2.setFromX(x+10);t2.setFromY(y+30);
                 t2.setToX(x-5);t2.setToY(y+70);
                 t3.setFromX(x-5);t3.setFromY(y+70);
                 t3.setToX(x+4);t3.setToY(y+100);
                 t4.setFromX(x+4);t4.setFromY(y+100);
-                t4.setToX(x+18);t4.setToY(y+110);
-                x+=18;
+                t4.setToX(x-12);t4.setToY(y+110);
+                x-=12;
                 y+=110;
             }
             else if (pos == 60) {
-//                polyline.getPoints().addAll(91.2, 221.6, 69.6, 243.2, 82.4, 241.2, 92.8, 247.2);
                 t1.setToX(x+25);t1.setToY(y+15);
                 t2.setFromX(x+25);t2.setFromY(y+15);
                 t2.setToX(x);t2.setToY(y+40);
                 t3.setFromX(x);t3.setFromY(y+40);
                 t3.setToX(x+13);t3.setToY(y+45);
                 t4.setFromX(x+13);t4.setFromY(y+45);
-                t4.setToX(x+56);t4.setToY(y+40);
-                x+=56;
+                t4.setToX(x+42);t4.setToY(y+40);
+                x+=42;
                 y+=40;
             }
             else if (pos == 69) {
-//                polyline.getPoints().addAll(240.8, 190.4, 263.2, 222.4, 241.6, 234.4, 237.6, 247.2);
                 t1.setToX(x-25);t1.setToY(y+20);
                 t2.setFromX(x-25);t2.setFromY(y+20);
                 t2.setToX(x);t2.setToY(y+50);
@@ -308,43 +292,39 @@ public class GameController {
                 y+=70;
             }
             else if (pos == 86) {
-//                polyline.getPoints().addAll(223.2, 124.2, 192.8, 164.4, 235.2, 190.4, 235.2, 214.4);
                 t1.setToX(x+30);t1.setToY(y+30);
                 t2.setFromX(x+30);t2.setFromY(y+30);
                 t2.setToX(x);t2.setToY(y+60);
                 t3.setFromX(x);t3.setFromY(y+60);
                 t3.setToX(x+43);t3.setToY(y+90);
                 t4.setFromX(x+43);t4.setFromY(y+90);
-                t4.setToX(x+25);t4.setToY(y+120);
-                x+=25;
-                y+=120;
+                t4.setToX(x+65);t4.setToY(y+110);
+                x+=65;
+                y+=110;
             }
             else if (pos == 90) {
-//                polyline.getPoints().addAll(264.8, 118.4, 287.2, 141.8, 274.4, 147.2, 262.4, 142.4);
                 t1.setToX(x-25);t1.setToY(y+15);
                 t2.setFromX(x-25);t2.setFromY(y+15);
                 t2.setToX(x);t2.setToY(y+40);
                 t3.setFromX(x);t3.setFromY(y+40);
                 t3.setToX(x-13);t3.setToY(y+45);
                 t4.setFromX(x-13);t4.setFromY(y+45);
-                t4.setToX(x-66);t4.setToY(y+30);
-                x-=66;
+                t4.setToX(x-26);t4.setToY(y+30);
+                x-=26;
                 y+=30;
             }
             else if (pos == 94) {
-//                polyline.getPoints().addAll(247.2, 87.2, 225.6, 119.2, 247.2, 129.6, 238.4, 141.6);
                 t1.setToX(x+25);t1.setToY(y+20);
                 t2.setFromX(x+25);t2.setFromY(y+20);
                 t2.setToX(x);t2.setToY(y+50);
                 t3.setFromX(x);t3.setFromY(y+50);
                 t3.setToX(x+23);t3.setToY(y+60);
                 t4.setFromX(x+23);t4.setFromY(y+60);
-                t4.setToX(x+20);t4.setToY(y+70);
-                x+=20;
-                y+=70;
+                t4.setToX(x+40);t4.setToY(y+80);
+                x+=40;
+                y+=80;
             }
             else if (pos == 96) {
-//                polyline.getPoints().addAll(142.4, 84.2, 164.8, 104.8, 152.8, 112.8, 139.2, 106.4);
                 t1.setToX(x-25);t1.setToY(y+15);
                 t2.setFromX(x-25);t2.setFromY(y+15);
                 t2.setToX(x);t2.setToY(y+40);
@@ -356,44 +336,39 @@ public class GameController {
                 y+=40;
             }
             else if (pos == 98) {
-//                polyline.getPoints().addAll(109.6, 95.2, 123.2, 138.4, 112.2, 173.8, 115.2, 214.4);
                 t1.setToX(x-5);t1.setToY(y+24);
                 t2.setFromX(x-5);t2.setFromY(y+24);
                 t2.setToX(x+5);t2.setToY(y+45);
                 t3.setFromX(x+5);t3.setFromY(y+65);
                 t3.setToX(x-5);t3.setToY(y+100);
                 t4.setFromX(x-5);t4.setFromY(y+100);
-                t4.setToX(x+6);t4.setToY(y+136);
-                x+=6;
-                y+=136;
+                t4.setToX(x+21);t4.setToY(y+146);
+                x+=21;
+                y+=146;
             }
             seq.play();
         }
         else if(ladders.containsKey(pos)){
             pos1 = ladders.get(pos) - pos;
             if (pos == 3) {
-                System.out.println("from x: " + x + " from y: " + y);
                 t.setFromX(x);t.setFromY(y);
                 t.setToX(x-57.8);t.setToY(y-72.0);
                 x-=57.8;
                 y-=72.0;
             }
             else if (pos == 8) {
-                System.out.println("from x: " + x + " from y: " + y);
                 t.setFromX(x);t.setFromY(y);
                 t.setToX(x-63.8);t.setToY(y-144.0);
                 x-=63.8;
                 y-=144.0;
             }
             else if (pos == 16) {
-                System.out.println("from x: " + x + " from y: " + y);
                 t.setFromX(x);t.setFromY(y);
-                t.setToX(x+28.9);t.setToY(y-36.0);
-                x+=28.9;
+                t.setToX(x+13.9);t.setToY(y-36.0);
+                x+=13.9;
                 y-=36.0;
             }
             else if (pos == 29) {
-                System.out.println("from x: " + x + " from y: " + y);
                 t.setFromX(x);t.setFromY(y);
                 t.setToX(x-48.9);t.setToY(y-36.0);
                 x-=48.9;
@@ -413,8 +388,8 @@ public class GameController {
             }
             else if (pos == 61) {
                 t.setFromX(x);t.setFromY(y);
-                t.setToX(x+38.9);t.setToY(y-72.0);
-                x+=48.9;
+                t.setToX(x+23.9);t.setToY(y-72.0);
+                x+=23.9;
                 y-=72.0;
             }
             else if (pos == 64) {
@@ -424,8 +399,8 @@ public class GameController {
             }
             else if (pos == 76) {
                 t.setFromX(x);t.setFromY(y);
-                t.setToX(x+43.9);t.setToY(y-72.0);
-                x+=43.9;
+                t.setToX(x+16);t.setToY(y-72.0);
+                x+=16;
                 y-=72.0;
             }
             else if (pos == 89) {
@@ -519,7 +494,6 @@ class PlayerBlue implements Runnable{
     }
 }
 
-
 class PlayerGreen implements Runnable{
     private int moveBy;
     ImageView image;
@@ -560,8 +534,8 @@ class PlayerGreen implements Runnable{
                         e.printStackTrace();
                     }
                     ctr -= 1;
-                    System.out.print("pos: " + GameController.getPosGreen());
-                    System.out.print("\tRow: " + GameController.getPosGreen() / 10);
+                    System.out.print("Pos of Green: " + GameController.getPosGreen());
+                    System.out.print("\tRow of Green: " + GameController.getPosGreen() / 10);
                     System.out.println();
                 }
                 System.out.println("X: " + x + " Y: " + y + " green");

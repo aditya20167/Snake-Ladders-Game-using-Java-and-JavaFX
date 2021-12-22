@@ -20,25 +20,18 @@ public class MenuController {
 
     @FXML
     private ImageView background;
-
     @FXML
     private Button exitButton;
-
     @FXML
     private Button playButton;
-
     @FXML
     private ImageView title;
-
     @FXML
     private AnchorPane menuPane;
-
     @FXML
     private Stage primaryStage;
-
     @FXML
     private Scene scene;
-
     @FXML
     private Parent root;
 
