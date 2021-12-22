@@ -81,7 +81,6 @@ public class GameController {
     @FXML
     TranslateTransition translate = new TranslateTransition();
     static Random rand = new Random();
-
     public GameController() {
         try {
             InputStream a = new FileInputStream("AP-Project/src/main/resources/com/example/approject/blue_token.png");
@@ -105,7 +104,6 @@ public class GameController {
         player1Label.setText(player1);
         player2Label.setText(player2);
     }
-
     @FXML
     void onClickReturn(ActionEvent event) {
         try {
@@ -176,16 +174,8 @@ public class GameController {
                         x = dieRoll;
                     }
                     diceRoller.setDisable(false);
-                    /*
-                    while(){
-                        if(blue){
-                        moveblue;}
-                        else if(green){
-                        movegreen;}
-                    }
-                     */
-                    PlayerBlue blue = new PlayerBlue(getX(), bluedie, rowBlue, posBlue, blueMoves);
-                    PlayerGreen green = new PlayerGreen(getX(), greendie, rowGreen, posGreen, greenMoves);
+                    PlayerBlue blue = new PlayerBlue(getX(), bluedie);
+                    PlayerGreen green = new PlayerGreen(getX(), greendie);
                     Thread play1 = new Thread(blue);
                     Thread play2 = new Thread(green);
                     if(blueMoves && !greenMoves){
@@ -200,9 +190,6 @@ public class GameController {
                 }
         });
         th1.start();
-        if(getPosBlue()==100 || getPosGreen()==100){
-            //move to new scene and give option to play a new game or go to home screen.
-        }
     }
 
     static int rowBlue = 0;
@@ -253,7 +240,6 @@ public class GameController {
     static boolean blueMoves = true;
     static boolean greenMoves = false;
 
-
     public TranslateTransition getTranslate(){
         return this.translate;
     }
@@ -292,7 +278,7 @@ public class GameController {
         t1.setFromX(x);t1.setFromY(y);
 //        Polyline polyline = new Polyline();
 //        Path path = new Path();
-        double x1 = x, y1 = y;
+//        double x1 = x, y1 = y;
         if(snakes.containsKey(pos)){
             pos1 = snakes.get(pos) - pos;
             if (pos == 24) {
@@ -303,7 +289,9 @@ public class GameController {
                 t3.setFromX(x);t3.setFromY(y+50);
                 t3.setToX(x+23);t3.setToY(y+60);
                 t4.setFromX(x+23);t4.setFromY(y+60);
-                t4.setToX(x+20);t4.setToY(y+70);
+                t4.setToX(x+15);t4.setToY(y+70);
+                x+=25;
+                y+=70;
             }
             else if (pos == 43) {
 //                polyline.getPoints().addAll(93.6, 265.6, 114.4, 294.4, 93.6, 305.6, 91.2, 317.6);
@@ -313,7 +301,9 @@ public class GameController {
                 t3.setFromX(x);t3.setFromY(y+50);
                 t3.setToX(x-23);t3.setToY(y+60);
                 t4.setFromX(x-23);t4.setFromY(y+60);
-                t4.setToX(x-20);t4.setToY(y+70);
+                t4.setToX(x-40);t4.setToY(y+70);
+                x-=40;
+                y+=70;
             }
             else if (pos == 56) {
 //                polyline.getPoints().addAll(177.6, 241.6, 162.4, 268.8, 175.2, 295.2, 163.2, 316.8);
@@ -324,6 +314,8 @@ public class GameController {
                 t3.setToX(x+4);t3.setToY(y+100);
                 t4.setFromX(x+4);t4.setFromY(y+100);
                 t4.setToX(x-3);t4.setToY(y+115);
+                x-=3;
+                y+=115;
             }
             else if (pos == 60) {
 //                polyline.getPoints().addAll(91.2, 221.6, 69.6, 243.2, 82.4, 241.2, 92.8, 247.2);
@@ -334,6 +326,8 @@ public class GameController {
                 t3.setToX(x+13);t3.setToY(y+45);
                 t4.setFromX(x+13);t4.setFromY(y+45);
                 t4.setToX(x+26);t4.setToY(y+40);
+                x+=26;
+                y+=40;
             }
             else if (pos == 69) {
 //                polyline.getPoints().addAll(240.8, 190.4, 263.2, 222.4, 241.6, 234.4, 237.6, 247.2);
@@ -343,7 +337,9 @@ public class GameController {
                 t3.setFromX(x);t3.setFromY(y+50);
                 t3.setToX(x-23);t3.setToY(y+60);
                 t4.setFromX(x-23);t4.setFromY(y+60);
-                t4.setToX(x-20);t4.setToY(y+70);
+                t4.setToX(x-50);t4.setToY(y+70);
+                x-=50;
+                y+=70;
             }
             else if (pos == 86) {
 //                polyline.getPoints().addAll(223.2, 124.2, 192.8, 164.4, 235.2, 190.4, 235.2, 214.4);
@@ -353,7 +349,9 @@ public class GameController {
                 t3.setFromX(x);t3.setFromY(y+60);
                 t3.setToX(x+43);t3.setToY(y+90);
                 t4.setFromX(x+43);t4.setFromY(y+90);
-                t4.setToX(x+50);t4.setToY(y+110);
+                t4.setToX(x+40);t4.setToY(y+110);
+                x+=40;
+                y+=110;
             }
             else if (pos == 90) {
 //                polyline.getPoints().addAll(264.8, 118.4, 287.2, 141.8, 274.4, 147.2, 262.4, 142.4);
@@ -363,7 +361,9 @@ public class GameController {
                 t3.setFromX(x);t3.setFromY(y+40);
                 t3.setToX(x-13);t3.setToY(y+45);
                 t4.setFromX(x-13);t4.setFromY(y+45);
-                t4.setToX(x-26);t4.setToY(y+40);
+                t4.setToX(x-36);t4.setToY(y+40);
+                x-=46;
+                y+=40;
             }
             else if (pos == 94) {
 //                polyline.getPoints().addAll(247.2, 87.2, 225.6, 119.2, 247.2, 129.6, 238.4, 141.6);
@@ -374,6 +374,8 @@ public class GameController {
                 t3.setToX(x+23);t3.setToY(y+60);
                 t4.setFromX(x+23);t4.setFromY(y+60);
                 t4.setToX(x+20);t4.setToY(y+70);
+                x+=20;
+                y+=70;
             }
             else if (pos == 96) {
 //                polyline.getPoints().addAll(142.4, 84.2, 164.8, 104.8, 152.8, 112.8, 139.2, 106.4);
@@ -384,6 +386,8 @@ public class GameController {
                 t3.setToX(x-13);t3.setToY(y+45);
                 t4.setFromX(x-13);t4.setFromY(y+45);
                 t4.setToX(x-26);t4.setToY(y+40);
+                x-=26;
+                y+=40;
             }
             else if (pos == 98) {
 //                polyline.getPoints().addAll(109.6, 95.2, 123.2, 138.4, 112.2, 173.8, 115.2, 214.4);
@@ -394,6 +398,8 @@ public class GameController {
                 t3.setToX(x+4);t3.setToY(y+100);
                 t4.setFromX(x+4);t4.setFromY(y+100);
                 t4.setToX(x-3);t4.setToY(y+115);
+                x-=3;
+                y+=115;
             }
             seq.play();
         }
@@ -402,46 +408,47 @@ public class GameController {
             if (pos == 3) {
                 System.out.println("from x: " + x + " from y: " + y);
                 t.setFromX(x);t.setFromY(y);
-                t.setToX(x-57.4);t.setToY(y-72.0);
-                x-=57.4;
+                t.setToX(x-57.8);t.setToY(y-72.0);
+                x-=57.8;
                 y-=72.0;
             }
             else if (pos == 8) {
                 System.out.println("from x: " + x + " from y: " + y);
                 t.setFromX(x);t.setFromY(y);
-                t.setToX(x-57.4);t.setToY(y-144.0);
-                x-=57.4;
+                t.setToX(x-63.8);t.setToY(y-144.0);
+                x-=63.8;
                 y-=144.0;
             }
             else if (pos == 16) {
                 System.out.println("from x: " + x + " from y: " + y);
                 t.setFromX(x);t.setFromY(y);
-                t.setToX(x+28.7);t.setToY(y-36.0);
-                x+=28.7;
+                t.setToX(x+28.9);t.setToY(y-36.0);
+                x+=28.9;
                 y-=36.0;
             }
             else if (pos == 29) {
                 System.out.println("from x: " + x + " from y: " + y);
                 t.setFromX(x);t.setFromY(y);
-                t.setToX(x-28.7);t.setToY(y-36.0);
-                x-=28.7;
+                t.setToX(x-48.9);t.setToY(y-36.0);
+                x-=48.9;
                 y-=36.0;
             }
             else if (pos == 37) {
                 t.setFromX(x);t.setFromY(y);
-                t.setToX(x+28.7);t.setToY(y-108.0);
-                x+=28.7;
+                t.setToX(x+18.9);t.setToY(y-108.0);
+                x+=18.9;
                 y-=108.0;
             }
             else if (pos == 50) {
                 t.setFromX(x);t.setFromY(y);
-                t.setToX(x);t.setToY(y-72.0);
+                t.setToX(x-20);t.setToY(y-72.0);
+                x-=20;
                 y-=72.0;
             }
             else if (pos == 61) {
                 t.setFromX(x);t.setFromY(y);
-                t.setToX(x+28.7);t.setToY(y-72.0);
-                x+=28.7;
+                t.setToX(x+28.9);t.setToY(y-72.0);
+                x+=28.9;
                 y-=72.0;
             }
             else if (pos == 64) {
@@ -451,28 +458,23 @@ public class GameController {
             }
             else if (pos == 76) {
                 t.setFromX(x);t.setFromY(y);
-                t.setToX(x+28.7);t.setToY(y-72.0);
-                x+=28.7;
+                t.setToX(x+28.9);t.setToY(y-72.0);
+                x+=28.9;
                 y-=72.0;
             }
             else if (pos == 89) {
                 t.setFromX(x);t.setFromY(y);
-                t.setToX(x+28.7);t.setToY(y-36.0);
-                x+=28.7;
+                t.setToX(x+28.9);t.setToY(y-36.0);
+                x+=28.9;
                 y-=36.0;
             }
             t.play();
         }
-//        pathTransition.setDuration(Duration.seconds(1));
-//        pathTransition.setNode(image);
-//        pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-//        pathTransition.play();
-        return new double[]{x,y, pos1};
+        return new double[]{x, y, pos1};
     }
     public static double movePlayerTokenX(ImageView image, int row, double x){
         TranslateTransition translate = new TranslateTransition();
         translate.setNode(image);
-//        translate.setCycleCount(1);
         if(row%2==0){
             translate.setByX(28.9);
             x+=28.9;
@@ -488,7 +490,6 @@ public class GameController {
     public static void movePlayerTokenY(ImageView image){
         TranslateTransition translate = new TranslateTransition();
         translate.setNode(image);
-//        translate.setCycleCount(1);
         translate.setByY(-36);
         translate.play();
     }
@@ -497,19 +498,15 @@ public class GameController {
 class PlayerBlue implements Runnable{
     int moveBy;
     ImageView image;
-    int row;
-    int pos;
-    boolean moves;
     static int flag = 0;
     static double x = 0.0, y = 0.0;
-    PlayerBlue(int moveBy, ImageView image, int row, int pos, boolean moves){
+    PlayerBlue(int moveBy, ImageView image){
         this.moveBy = moveBy;
         this.image = image;
-        this.row = row;
-        this.pos = pos;
-        this.moves = moves;
     }
-
+    PlayerBlue(){
+        flag = 0;
+    }
     @Override
     public void run(){
         int ctr = moveBy;
@@ -517,14 +514,11 @@ class PlayerBlue implements Runnable{
             if(moveBy == 1) {
                 TranslateTransition translate = new TranslateTransition();
                 translate.setNode(image);
-                translate.setCycleCount(1);
                 translate.setByY(-30);
                 translate.play();
                 flag = 1;
                 y-=36;
             }
-            GameController.blueMoves = false;
-            GameController.greenMoves = true;
         }
         else if (flag == 1) {
             if (GameController.getPosBlue() + moveBy <= 100) {
@@ -556,30 +550,29 @@ class PlayerBlue implements Runnable{
                     y = arr[1];
                     GameController.setPosBlue((int) arr[2]);
                 }
-                GameController.blueMoves = false;
-                GameController.greenMoves = true;
             }
         }
+        GameController.blueMoves = false;
+        GameController.greenMoves = true;
+    }
+    public void setFlag(){
+        flag = 0;
     }
 }
 
 
 class PlayerGreen implements Runnable{
-    int moveBy;
+    private int moveBy;
     ImageView image;
-    int row;
-    int pos;
-    boolean moves;
-    static int flag = 0;
-    static double x = 0.0, y = 0.0;
-    PlayerGreen(int moveBy, ImageView image, int row, int pos, boolean moves){
+    private static int flag = 0;
+    private static double x = 0.0, y = 0.0;
+    PlayerGreen(int moveBy, ImageView image){
         this.moveBy = moveBy;
         this.image = image;
-        this.row = row;
-        this.pos = pos;
-        this.moves = moves;
     }
-
+    PlayerGreen(){
+        flag = 0;
+    }
     @Override
     public void run(){
         int ctr = moveBy;
@@ -587,14 +580,12 @@ class PlayerGreen implements Runnable{
             if(moveBy == 1) {
                 TranslateTransition translate = new TranslateTransition();
                 translate.setNode(image);
-                translate.setCycleCount(1);
+//                translate.setCycleCount(1);
                 translate.setByY(-36);
                 translate.play();
                 flag = 1;
                 y-=36;
             }
-            GameController.blueMoves = true;
-            GameController.greenMoves = false;
         }
         else if (flag == 1) {
             if (GameController.getPosGreen() + moveBy <= 100) {
@@ -605,7 +596,6 @@ class PlayerGreen implements Runnable{
                     } else {
                         GameController.movePlayerTokenY(image);
                         GameController.setPosGreen(1);
-//                    GameController.setRowGreen();
                         y -= 36;
                     }
                     try {
@@ -626,9 +616,12 @@ class PlayerGreen implements Runnable{
                     y = arr[1];
                     GameController.setPosGreen((int) arr[2]);
                 }
-                GameController.blueMoves = true;
-                GameController.greenMoves = false;
             }
         }
+        GameController.blueMoves = true;
+        GameController.greenMoves = false;
+    }
+    public void setFlag(){
+        flag = 0;
     }
 }
