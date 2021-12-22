@@ -22,6 +22,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javax.xml.catalog.CatalogManager;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.util.HashMap;
@@ -76,20 +77,11 @@ public class GameController {
     private Parent root;
 
     @FXML
-    private Image die1, die2, die3, die4, die5, die6, blueDie, greenDie;
+    private Image blueDie, greenDie;
 
     @FXML
     TranslateTransition translate = new TranslateTransition();
     static Random rand = new Random();
-
-    public void setDiceImages() throws FileNotFoundException{
-        die1 = new Image("dice_1.png");
-        die2 = new Image("dice_2.png");
-        die3 = new Image("dice_3.png");
-        die4 = new Image("dice_4.png");
-        die5 = new Image("dice_5.png");
-        die6 = new Image("dice_6.png");
-    }
 
     public GameController() {
         try {
@@ -102,6 +94,7 @@ public class GameController {
         }
     }
     private int x;
+
     @FXML
     private Text Status;
     @FXML
@@ -156,15 +149,15 @@ public class GameController {
     }
 
     public static void setPosBlue() {
-        GameController.posBlue += 1;
+        posBlue+=1;
     }
 
-    public static int getRowBlue() {
-        return rowBlue;
+    public static int getPosGreen() {
+        return posGreen;
     }
 
-    public static void setRowBlue() {
-        GameController.rowBlue+=1;
+    public static void setPosGreen() {
+        posGreen+=1;
     }
 
     @FXML
@@ -190,43 +183,44 @@ public class GameController {
                     }
                      */
 //                    moveBlue(x);
-                    Thread thread = new Thread(new Player(x, bluedie, rowBlue, posBlue));
-                    thread.start();
-                    Thread.sleep(200);
+                    PlayerBlue blue = new PlayerBlue(getX(), bluedie, rowBlue, posBlue, blueMoves);
+                    PlayerGreen green = new PlayerGreen(getX(), greendie, rowGreen, posGreen, greenMoves);
+                    Thread play1 = new Thread(blue);
+                    Thread play2 = new Thread(green);
+                    while (getPosBlue()!=100 || getPosGreen()!=100){
+                        if(blueMoves && !greenMoves){
+                            play1.start();
+                        }
+                        else if(greenMoves && !blueMoves){
+                            play2.start();
+                        }
+                    }
                 }
                 catch (Exception e) {
                     System.out.println(e);
                 }
         });
         th1.start();
+
     }
 
+    static int rowBlue = 1;
+    static int rowGreen = 1;
 
-    public void movePlayerTokenX (ImageView image, int row){
-//        TranslateTransition translate = new TranslateTransition();
-//        translate.setNode(image);
-//        translate.setDuration(Duration.millis(2000));
-//        translate.setCycleCount(1);
-        if(row%2==0){
-//            translate.setByX(-25);
-            image.setTranslateX(image.getTranslateX()-25);
-        }
-        else {
-//            translate.setByX(25);
-            image.setTranslateX(image.getTranslateX()+25);
-        }
-//        translate.play();
+    public static int getRowGreen() {
+        return rowGreen;
     }
 
-    @FXML
-    public void movePlayerTokenY (ImageView image){
-//        TranslateTransition translate = new TranslateTransition();
-//        translate.setNode(image);
-//        translate.setDuration(Duration.millis(2000));
-//        translate.setCycleCount(1);
-        image.setTranslateY(image.getTranslateY()-25);
-//        translate.play();
+    public static void setRowGreen() {
+        rowGreen+=1;
+    }
 
+    public static int getRowBlue() {
+        return rowBlue;
+    }
+
+    public static void setRowBlue() {
+        rowBlue+=1;
     }
 
     HashMap<Integer, Integer> snakes = new HashMap<>();
@@ -255,81 +249,10 @@ public class GameController {
         ladders.put(89, 91);
     }
 
-    boolean blueMoves = true;
-    boolean greenMoves = false;
+    static boolean blueMoves = true;
+    static boolean greenMoves = false;
 
 
-
-    static int rowBlue = 1;
-    static int rowGreen = 1;
-
-    void moveBlue(int moveBy){
-        int ctr = moveBy;
-        while (ctr!=0){
-            if(posBlue%10!=0){
-                movePlayerTokenX(bluedie, rowBlue);
-                posBlue+=1;
-            }
-            else if(posBlue%10==0){
-                movePlayerTokenY(bluedie);
-                posBlue+=1;
-                rowBlue+=1;
-            }
-            ctr-=1;
-        }
-        if(moveBy!=6){
-            blueMoves = false;
-            greenMoves = true;
-        }
-        else {
-            blueMoves = true;
-            greenMoves = false;
-        }
-    }
-
-    void moveGreen(int moveBy){
-        int ctr = moveBy;
-        while (ctr!=0){
-            if(posGreen%10!=0){
-                movePlayerTokenX(greendie, rowGreen);
-                posGreen+=1;
-            }
-            else if(posGreen%10==0){
-                movePlayerTokenY(greendie);
-                posGreen+=1;
-                rowGreen+=1;
-            }
-            ctr-=1;
-        }
-
-        if(moveBy!=6){
-            greenMoves = false;
-            blueMoves = true;
-        }
-        else {
-            greenMoves = true;
-            blueMoves = false;
-        }
-    }
-
-    public Image getDie1(){
-        return this.die1;
-    }
-    public Image getDie2(){
-        return this.die2;
-    }
-    public Image getDie3(){
-        return this.die3;
-    }
-    public Image getDie4(){
-        return this.die4;
-    }
-    public Image getDie5(){
-        return this.die5;
-    }
-    public Image getDie6(){
-        return this.die6;
-    }
     public TranslateTransition getTranslate(){
         return this.translate;
     }
@@ -351,32 +274,30 @@ public class GameController {
     }
 }
 
-class Player implements Runnable{
+class PlayerBlue implements Runnable{
     int moveBy;
     ImageView image;
     int row;
     int pos;
     boolean moves;
-    boolean halt;
-    Player(int moveBy, ImageView image, int row, int pos){
+
+    PlayerBlue(int moveBy, ImageView image, int row, int pos, boolean moves){
         this.moveBy = moveBy;
         this.image = image;
         this.row = row;
         this.pos = pos;
+        this.moves = moves;
     }
 
     public void movePlayerTokenX (ImageView image, int row){
         TranslateTransition translate = new TranslateTransition();
         translate.setNode(image);
-//        translate.setDuration(Duration.millis(2000));
         translate.setCycleCount(1);
         if(row%2==0){
-            translate.setByX(-30);
-//            image.setTranslateX(image.getTranslateX()-25);
+            translate.setByX(-28.8);
         }
         else {
-            translate.setByX(30);
-//            image.setTranslateX(image.getTranslateX()+25);
+            translate.setByX(28.8);
         }
         translate.play();
     }
@@ -384,10 +305,8 @@ class Player implements Runnable{
     public void movePlayerTokenY (ImageView image){
         TranslateTransition translate = new TranslateTransition();
         translate.setNode(image);
-//        translate.setDuration(Duration.millis(2000));
         translate.setCycleCount(1);
-//        image.setTranslateY(image.getTranslateY()-25);
-        translate.setByY(-40);
+        translate.setByY(-36);
         translate.play();
     }
 
@@ -410,39 +329,76 @@ class Player implements Runnable{
                 e.printStackTrace();
             }
             ctr-=1;
-            System.out.println("pos: " + GameController.getPosBlue());
-            System.out.println("Row: " + GameController.getRowBlue());
+            System.out.print("Pos of Blue: " + GameController.getPosBlue());
+            System.out.print("\tRow of Blue: " + GameController.getRowBlue());
+            System.out.println();
         }
-        if(moveBy!=6){
-            moves = false;
-            halt = true;
-        }
-        else {
-            moves = true;
-            halt = false;
-        }
-    }
-
-    public int getPos() {
-        return pos;
-    }
-
-    public void setPos() {
-        this.pos+=1;
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public void setRow() {
-        this.row+=1;
+        GameController.blueMoves = false;
+        GameController.greenMoves = true;
     }
 }
 
-class DieRoll implements Runnable{
+
+class PlayerGreen implements Runnable{
+    int moveBy;
+    ImageView image;
+    int row;
+    int pos;
+    boolean moves;
+
+    PlayerGreen(int moveBy, ImageView image, int row, int pos, boolean moves){
+        this.moveBy = moveBy;
+        this.image = image;
+        this.row = row;
+        this.pos = pos;
+        this.moves = moves;
+    }
+
+    public void movePlayerTokenX (ImageView image, int row){
+        TranslateTransition translate = new TranslateTransition();
+        translate.setNode(image);
+        translate.setCycleCount(1);
+        if(row%2==0){
+            translate.setByX(-28.8);
+        }
+        else {
+            translate.setByX(28.8);
+        }
+        translate.play();
+    }
+
+    public void movePlayerTokenY (ImageView image){
+        TranslateTransition translate = new TranslateTransition();
+        translate.setNode(image);
+        translate.setCycleCount(1);
+        translate.setByY(-36);
+        translate.play();
+    }
+
     @Override
     public void run(){
-
+        int ctr = moveBy;
+        while (ctr!=0){
+            if(GameController.getPosGreen()%10!=0){
+                movePlayerTokenX(image, GameController.getRowGreen());
+                GameController.setPosGreen();
+            }
+            else {
+                movePlayerTokenY(image);
+                GameController.setPosGreen();
+                GameController.setRowGreen();
+            }
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            ctr-=1;
+            System.out.print("pos: " + GameController.getPosGreen());
+            System.out.print("\tRow: " + GameController.getRowGreen());
+            System.out.println();
+        }
+        GameController.blueMoves = true;
+        GameController.greenMoves = false;
     }
 }
